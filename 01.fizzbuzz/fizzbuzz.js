@@ -8,10 +8,5 @@ for (let i = 1; i <= 20; i++) {
     output += "Buzz";
   }
 
-  if (output === "") {
-    console.log(i);
-  }
-  else {
-    console.log(output);
-  }
+  console.log(output === "" ? i : output);
 }
