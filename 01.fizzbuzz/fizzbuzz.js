@@ -9,5 +9,5 @@ for (let i = 1; i <= 20; i++) {
     output += "Buzz";
   }
 
-  console.log(output === "" ? i : output);
+  console.log('\x1b[37m%s\x1b[0m', output === "" ? i : output);
 }
