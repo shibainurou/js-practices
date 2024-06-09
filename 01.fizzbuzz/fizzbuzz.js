@@ -3,7 +3,7 @@
 for (let i = 1; i <= 20; i++) {
   let output = "";
   if (i % 3 === 0) {
-    output = "Fizz";
+    output += "Fizz";
   }
   if (i % 5 === 0) {
     output += "Buzz";
