@@ -8,6 +8,9 @@ for (let i = 1; i <= 20; i++) {
   if (i % 5 === 0) {
     output += "Buzz";
   }
+  if (output === "") {
+    output = i.toString();
+  }
 
-  console.log("%s", output === "" ? i.toString() : output);
+  console.log(output);
 }
