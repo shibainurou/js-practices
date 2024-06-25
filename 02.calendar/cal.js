@@ -3,7 +3,7 @@
 import minimist from "minimist";
 import dayjs from "dayjs";
 
-function calendar() {
+function runCalendar() {
   const argv = minimist(process.argv.slice(2));
   const year = parseInt(argv.y) || dayjs().year();
   const month = parseInt(argv.m) || dayjs().month() + 1;
@@ -51,4 +51,4 @@ function displayWeekAndDays(year, month, maxWidth, dayWidth, numberOfWeeks) {
   console.log("");
 }
 
-calendar();
+runCalendar();
