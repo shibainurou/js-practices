@@ -43,10 +43,10 @@ function displayWeekAndDays(year, month, maxWidth, dayWidth, daysOfTheWeek) {
     if ((firstDate.day() + i) % daysOfTheWeek !== 0) {
       process.stdout.write(daySpaces);
     } else {
-      console.log("");
+      console.log();
     }
   }
-  console.log("");
+  console.log();
 }
 
 runCalendar();
