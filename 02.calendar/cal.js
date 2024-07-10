@@ -11,11 +11,11 @@ function runCalendar() {
 }
 
 function display(year, month) {
-  const NUMBER_OF_WEEKS = 7;
+  const DAYS_OF_THE_WEEK = 7;
   const DAY_WIDTH = 2;
-  const MAX_WIDTH = NUMBER_OF_WEEKS * DAY_WIDTH + (NUMBER_OF_WEEKS - 1);
+  const MAX_WIDTH = DAYS_OF_THE_WEEK * DAY_WIDTH + (DAYS_OF_THE_WEEK - 1);
   displayYearAndMonth(year, month, MAX_WIDTH);
-  displayWeekAndDays(year, month, MAX_WIDTH, DAY_WIDTH, NUMBER_OF_WEEKS);
+  displayWeekAndDays(year, month, MAX_WIDTH, DAY_WIDTH, DAYS_OF_THE_WEEK);
 }
 
 function displayYearAndMonth(year, month, maxWidth) {
@@ -25,10 +25,10 @@ function displayYearAndMonth(year, month, maxWidth) {
   console.log(halfSpaces + title);
 }
 
-function displayWeekAndDays(year, month, maxWidth, dayWidth, numberOfWeeks) {
+function displayWeekAndDays(year, month, maxWidth, dayWidth, daysOfTheWeek) {
   const weekTitle = ["日", "月", "火", "水", "木", "金", "土"];
-  const allSpaces = Math.floor(maxWidth - numberOfWeeks * dayWidth);
-  const daySpaces = " ".repeat(allSpaces / (numberOfWeeks - 1));
+  const allSpaces = Math.floor(maxWidth - daysOfTheWeek * dayWidth);
+  const daySpaces = " ".repeat(allSpaces / (daysOfTheWeek - 1));
   const paddedWeekTitle = weekTitle.map((day) => day.padStart(dayWidth - 1));
   console.log(paddedWeekTitle.join(daySpaces));
 
@@ -42,7 +42,7 @@ function displayWeekAndDays(year, month, maxWidth, dayWidth, numberOfWeeks) {
   for (let i = 1; i <= lastDay; i++) {
     let dayString = i.toString().padStart(dayWidth, " ");
     process.stdout.write(dayString);
-    if ((firstDayOfWeek + i) % numberOfWeeks !== 0) {
+    if ((firstDayOfWeek + i) % daysOfTheWeek !== 0) {
       process.stdout.write(daySpaces);
     } else {
       console.log("");
