@@ -22,7 +22,7 @@ function displayYearAndMonth(year, month, maxWidth) {
   const title = `${month}月 ${year}`;
   const allSpaces = Math.floor(maxWidth - title.length);
   const halfSpaces = " ".repeat(allSpaces / 2);
-  console.log(halfSpaces + title);
+  console.log(`${halfSpaces}${title}`);
 }
 
 function displayWeekAndDays(year, month, maxWidth, dayWidth, daysOfTheWeek) {
