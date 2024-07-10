@@ -33,16 +33,14 @@ function displayWeekAndDays(year, month, maxWidth, dayWidth, daysOfTheWeek) {
   console.log(paddedWeekTitle.join(daySpaces));
 
   const firstDate = dayjs(`${year}-${month}-01`);
-  const firstDayOfWeek = firstDate.day();
-  const lastDay = firstDate.endOf("month").date();
-
-  for (let i = 0; i < firstDayOfWeek; i++) {
+  const lastDate = firstDate.endOf("month");
+  for (let i = 0; i < firstDate.day(); i++) {
     process.stdout.write(" ".repeat(dayWidth) + daySpaces);
   }
-  for (let i = 1; i <= lastDay; i++) {
+  for (let i = 1; i <= lastDate.date(); i++) {
     let dayString = i.toString().padStart(dayWidth, " ");
     process.stdout.write(dayString);
-    if ((firstDayOfWeek + i) % daysOfTheWeek !== 0) {
+    if ((firstDate.day() + i) % daysOfTheWeek !== 0) {
       process.stdout.write(daySpaces);
     } else {
       console.log("");
