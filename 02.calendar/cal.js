@@ -40,10 +40,10 @@ function displayWeekAndDays(year, month, maxWidth, dayWidth, daysOfTheWeek) {
   for (let i = 1; i <= lastDate.date(); i++) {
     let dayString = i.toString().padStart(dayWidth, " ");
     process.stdout.write(dayString);
-    if ((firstDate.day() + i) % daysOfTheWeek !== 0) {
-      process.stdout.write(daySpaces);
-    } else {
+    if ((firstDate.day() + i) % daysOfTheWeek === 0 || i === lastDate.date()) {
       console.log();
+    } else {
+      process.stdout.write(daySpaces);
     }
   }
   console.log();
