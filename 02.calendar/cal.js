@@ -5,8 +5,9 @@ import dayjs from "dayjs";
 
 function runCalendar() {
   const argv = minimist(process.argv.slice(2));
-  const year = parseInt(argv.y) || dayjs().year();
-  const month = parseInt(argv.m) || dayjs().month() + 1;
+  const currentDate = dayjs();
+  const year = parseInt(argv.y) || currentDate.year();
+  const month = parseInt(argv.m) || currentDate.month() + 1;
   display(year, month);
 }
 
