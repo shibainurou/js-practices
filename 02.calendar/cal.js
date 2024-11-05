@@ -6,8 +6,12 @@ import dayjs from "dayjs";
 function runCalendar() {
   const argv = minimist(process.argv.slice(2));
   const currentDate = dayjs();
-  const year = parseInt(argv.y) || currentDate.year();
-  const month = parseInt(argv.m) || currentDate.month() + 1;
+  const year =
+    typeof argv.y === "number" && argv.y !== 0 ? argv.y : currentDate.year();
+  const month =
+    typeof argv.m === "number" && 1 <= argv.m >= 12
+      ? argv.m
+      : currentDate.month() + 1;
   display(year, month);
 }
 
