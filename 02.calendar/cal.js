@@ -12,10 +12,10 @@ function runCalendarApp() {
     typeof argv.m === "number" && 1 <= argv.m >= 12
       ? argv.m
       : currentDate.month() + 1;
-  display(year, month);
+  displayCalendar(year, month);
 }
 
-function display(year, month) {
+function displayCalendar(year, month) {
   const DAYS_OF_THE_WEEK = 7;
   const DAY_WIDTH = 2;
   const MAX_WIDTH = DAYS_OF_THE_WEEK * DAY_WIDTH + (DAYS_OF_THE_WEEK - 1);
