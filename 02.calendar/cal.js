@@ -50,7 +50,8 @@ function displayWeekAndDays(year, month) {
     process.stdout.write(dayString);
 
     const isEndOfWeek = (firstDate.day() + i) % DAYS_OF_THE_WEEK === 0;
-    if (isEndOfWeek || i === lastDate.date()) {
+    const isEndOfMonth = i === lastDate.date();
+    if (isEndOfWeek || isEndOfMonth) {
       console.log();
     } else {
       process.stdout.write(daySpaces);
