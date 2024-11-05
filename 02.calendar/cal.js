@@ -3,6 +3,10 @@
 import minimist from "minimist";
 import dayjs from "dayjs";
 
+const DAYS_OF_THE_WEEK = 7;
+const DAY_WIDTH = 2;
+const MAX_WIDTH = DAYS_OF_THE_WEEK * DAY_WIDTH + (DAYS_OF_THE_WEEK - 1);
+
 function runCalendarApp() {
   const argv = minimist(process.argv.slice(2));
   const currentDate = dayjs();
@@ -16,37 +20,36 @@ function runCalendarApp() {
 }
 
 function displayCalendar(year, month) {
-  const DAYS_OF_THE_WEEK = 7;
-  const DAY_WIDTH = 2;
-  const MAX_WIDTH = DAYS_OF_THE_WEEK * DAY_WIDTH + (DAYS_OF_THE_WEEK - 1);
-  displayYearAndMonth(year, month, MAX_WIDTH);
-  displayWeekAndDays(year, month, MAX_WIDTH, DAY_WIDTH, DAYS_OF_THE_WEEK);
+  displayYearAndMonth(year, month);
+  displayWeekAndDays(year, month);
 }
 
-function displayYearAndMonth(year, month, maxWidth) {
+function displayYearAndMonth(year, month) {
   const title = `${month}月 ${year}`;
-  const totalPaddingCount = Math.floor(maxWidth - title.length);
+  const totalPaddingCount = Math.floor(MAX_WIDTH - title.length);
   const leftPaddingText = " ".repeat(totalPaddingCount / 2);
   console.log(`${leftPaddingText}${title}`);
 }
 
-function displayWeekAndDays(year, month, maxWidth, dayWidth, daysOfTheWeek) {
+function displayWeekAndDays(year, month) {
   const weekTitle = ["日", "月", "火", "水", "木", "金", "土"];
-  const totalPaddingCount = Math.floor(maxWidth - daysOfTheWeek * dayWidth);
-  const daySpaces = " ".repeat(totalPaddingCount / (daysOfTheWeek - 1));
-  const paddedWeekTitle = weekTitle.map((day) => day.padStart(dayWidth - 1));
+  const totalPaddingCount = Math.floor(
+    MAX_WIDTH - DAYS_OF_THE_WEEK * DAY_WIDTH,
+  );
+  const daySpaces = " ".repeat(totalPaddingCount / (DAYS_OF_THE_WEEK - 1));
+  const paddedWeekTitle = weekTitle.map((day) => day.padStart(DAY_WIDTH - 1));
   console.log(paddedWeekTitle.join(daySpaces));
 
   const firstDate = dayjs(`${year}-${month}-01`);
   const lastDate = firstDate.endOf("month");
   for (let i = 0; i < firstDate.day(); i++) {
-    process.stdout.write(" ".repeat(dayWidth) + daySpaces);
+    process.stdout.write(" ".repeat(DAY_WIDTH) + daySpaces);
   }
   for (let i = 1; i <= lastDate.date(); i++) {
-    let dayString = i.toString().padStart(dayWidth, " ");
+    let dayString = i.toString().padStart(DAY_WIDTH, " ");
     process.stdout.write(dayString);
 
-    const isWeekend = (firstDate.day() + i) % daysOfTheWeek === 0;
+    const isWeekend = (firstDate.day() + i) % DAYS_OF_THE_WEEK === 0;
     if (isWeekend || i === lastDate.date()) {
       console.log();
     } else {
