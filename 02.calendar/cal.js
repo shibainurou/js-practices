@@ -32,13 +32,13 @@ function displayYearAndMonth(year, month) {
 }
 
 function displayWeekAndDays(year, month) {
-  const weekTitle = ["日", "月", "火", "水", "木", "金", "土"];
+  const dayOfWeek = ["日", "月", "火", "水", "木", "金", "土"];
   const totalPaddingCount = Math.floor(
     MAX_WIDTH - DAYS_OF_THE_WEEK * DAY_WIDTH,
   );
   const daySpaces = " ".repeat(totalPaddingCount / (DAYS_OF_THE_WEEK - 1));
-  const paddedWeekTitle = weekTitle.map((day) => day.padStart(DAY_WIDTH - 1));
-  console.log(paddedWeekTitle.join(daySpaces));
+  const paddedDayOfWeek = dayOfWeek.map((day) => day.padStart(DAY_WIDTH - 1));
+  console.log(paddedDayOfWeek.join(daySpaces));
 
   const firstDate = dayjs(`${year}-${month}-01`);
   const lastDate = firstDate.endOf("month");
