@@ -49,8 +49,8 @@ function displayWeekAndDays(year, month) {
     let dayString = i.toString().padStart(DAY_WIDTH, " ");
     process.stdout.write(dayString);
 
-    const isWeekend = (firstDate.day() + i) % DAYS_OF_THE_WEEK === 0;
-    if (isWeekend || i === lastDate.date()) {
+    const isEndOfWeek = (firstDate.day() + i) % DAYS_OF_THE_WEEK === 0;
+    if (isEndOfWeek || i === lastDate.date()) {
       console.log();
     } else {
       process.stdout.write(daySpaces);
