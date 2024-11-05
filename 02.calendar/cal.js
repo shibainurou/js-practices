@@ -25,15 +25,15 @@ function display(year, month) {
 
 function displayYearAndMonth(year, month, maxWidth) {
   const title = `${month}月 ${year}`;
-  const allSpaces = Math.floor(maxWidth - title.length);
-  const halfSpaces = " ".repeat(allSpaces / 2);
-  console.log(`${halfSpaces}${title}`);
+  const totalPaddingCount = Math.floor(maxWidth - title.length);
+  const leftPaddingText = " ".repeat(totalPaddingCount / 2);
+  console.log(`${leftPaddingText}${title}`);
 }
 
 function displayWeekAndDays(year, month, maxWidth, dayWidth, daysOfTheWeek) {
   const weekTitle = ["日", "月", "火", "水", "木", "金", "土"];
-  const allSpaces = Math.floor(maxWidth - daysOfTheWeek * dayWidth);
-  const daySpaces = " ".repeat(allSpaces / (daysOfTheWeek - 1));
+  const totalPaddingCount = Math.floor(maxWidth - daysOfTheWeek * dayWidth);
+  const daySpaces = " ".repeat(totalPaddingCount / (daysOfTheWeek - 1));
   const paddedWeekTitle = weekTitle.map((day) => day.padStart(dayWidth - 1));
   console.log(paddedWeekTitle.join(daySpaces));
 
