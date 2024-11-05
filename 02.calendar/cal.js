@@ -3,7 +3,7 @@
 import minimist from "minimist";
 import dayjs from "dayjs";
 
-function runCalendar() {
+function runCalendarApp() {
   const argv = minimist(process.argv.slice(2));
   const currentDate = dayjs();
   const year =
@@ -56,4 +56,4 @@ function displayWeekAndDays(year, month, maxWidth, dayWidth, daysOfTheWeek) {
   console.log();
 }
 
-runCalendar();
+runCalendarApp();
