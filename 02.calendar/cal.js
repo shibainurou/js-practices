@@ -13,7 +13,7 @@ function runCalendarApp() {
   const year =
     typeof argv.y === "number" && argv.y !== 0 ? argv.y : currentDate.year();
   const month =
-    typeof argv.m === "number" && 1 <= argv.m <= 12
+    typeof argv.m === "number" && 1 <= argv.m && argv.m <= 12
       ? argv.m
       : currentDate.month() + 1;
   displayCalendar(year, month);
