@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 
 const DAYS_OF_THE_WEEK = 7;
 const DAY_WIDTH = 2;
-const MAX_WIDTH = DAYS_OF_THE_WEEK * DAY_WIDTH + (DAYS_OF_THE_WEEK - 1);
+const MAX_WIDTH = 20;
 
 function runCalendarApp() {
   const argv = minimist(process.argv.slice(2));
@@ -32,18 +32,12 @@ function displayYearAndMonth(year, month) {
 }
 
 function displayWeekAndDays(year, month) {
-  const dayOfWeek = ["日", "月", "火", "水", "木", "金", "土"];
-  const totalPaddingCount = Math.floor(
-    MAX_WIDTH - DAYS_OF_THE_WEEK * DAY_WIDTH,
-  );
-  const daySpaces = " ".repeat(totalPaddingCount / (DAYS_OF_THE_WEEK - 1));
-  const paddedDayOfWeek = dayOfWeek.map((day) => day.padStart(DAY_WIDTH - 1));
-  console.log(paddedDayOfWeek.join(daySpaces));
+  console.log("日 月 火 水 木 金 土");
 
   const firstDate = dayjs(`${year}-${month}-01`);
   const lastDate = firstDate.endOf("month");
   for (let i = 0; i < firstDate.day(); i++) {
-    process.stdout.write(" ".repeat(DAY_WIDTH) + daySpaces);
+    process.stdout.write(" ".repeat(DAY_WIDTH) + " ");
   }
   for (let i = 1; i <= lastDate.date(); i++) {
     let dayString = i.toString().padStart(DAY_WIDTH, " ");
@@ -54,7 +48,7 @@ function displayWeekAndDays(year, month) {
     if (isEndOfWeek || isEndOfMonth) {
       console.log();
     } else {
-      process.stdout.write(daySpaces);
+      process.stdout.write(" ");
     }
   }
   console.log();
