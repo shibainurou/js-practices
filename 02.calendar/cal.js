@@ -11,7 +11,9 @@ function runCalendarApp() {
   const argv = minimist(process.argv.slice(2));
   const currentDate = dayjs();
   const year =
-    typeof argv.y === "number" && argv.y !== 0 ? argv.y : currentDate.year();
+    typeof argv.y === "number" && 1 <= argv.y && argv.y <= 9999
+      ? argv.y
+      : currentDate.year();
   const month =
     typeof argv.m === "number" && 1 <= argv.m && argv.m <= 12
       ? argv.m
