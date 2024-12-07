@@ -1,41 +1,85 @@
 #!/usr/bin/env node
 
-import {
-  openDatabase,
-  createTable,
-  insertRow,
-  selectRow,
-  dropTable,
-  closeDatabase,
-} from "./promise-common.js";
+import sqlite3 from "sqlite3";
 
 var db = null;
 
-main();
-
-function main() {
-  openDatabase()
+(function () {
+  new Promise((resolve, reject) => {
+    const database = new sqlite3.Database(":memory:", (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(database);
+      }
+    });
+  })
     .then((database) => {
       db = database;
-      return createTable(db);
+      return new Promise((resolve, reject) => {
+        db.run(
+          "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
+          (err) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          },
+        );
+      });
     })
-    .then(() =>
-      insertRow(db, "INSERT INTO books (id, title) VALUES (?, ?)", [
-        "a",
-        "book title",
-      ]),
-    )
+    .then(() => {
+      return new Promise((resolve, reject) => {
+        db.run(
+          "INSERT INTO books (id, title) VALUES (?, ?)",
+          ["a", "book title"],
+          function (err) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(this);
+            }
+          },
+        );
+      });
+    })
     .catch((err) => {
       console.error(err.message);
     })
     .then(() => {
-      return selectRow(db, "SELECT ids, title FROM books");
-    })
-    .catch((err) => {
-      console.error(err.message);
+      return new Promise((resolve, reject) => {
+        db.get("SELECT ids, title FROM books", (err, row) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(row);
+          }
+        });
+      }).catch((err) => {
+        console.error(err.message);
+      });
     })
     .then(() => {
-      return dropTable(db);
+      return new Promise((resolve, reject) => {
+        db.run("DROP TABLE books", (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
     })
-    .then(() => closeDatabase);
-}
+    .then(() => {
+      return new Promise((resolve, reject) => {
+        db.close((err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
+    });
+})();

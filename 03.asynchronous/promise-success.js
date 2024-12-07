@@ -1,52 +1,82 @@
 #!/usr/bin/env node
 
-import { openDatabase, closeDatabase } from "./promise-common.js";
+import sqlite3 from "sqlite3";
 
 var db = null;
 
-main();
-
-function main() {
-  openDatabase()
+(function () {
+  new Promise((resolve, reject) => {
+    const database = new sqlite3.Database(":memory:", (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(database);
+      }
+    });
+  })
     .then((database) => {
       db = database;
-      return run(
-        db,
-        "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
-      );
+      return new Promise((resolve, reject) => {
+        db.run(
+          "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
+          (err) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          },
+        );
+      });
     })
-    .then(() => run(db, "INSERT INTO books (title) VALUES (?)", ["book title"]))
+    .then(() => {
+      return new Promise((resolve, reject) => {
+        db.run(
+          "INSERT INTO books (title) VALUES (?)",
+          ["book title"],
+          function (err) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(this);
+            }
+          },
+        );
+      });
+    })
     .then((result) => {
       console.log(`id: ${result.lastID}`);
-      return getRecord(db, "SELECT id, title FROM books");
+      return new Promise((resolve, reject) => {
+        db.get("SELECT id, title FROM books", (err, row) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(row);
+          }
+        });
+      });
     })
     .then((row) => {
       console.log("id: " + row.id + ", title: " + row.title);
-      return run(db, "DROP TABLE books");
+      return new Promise((resolve, reject) => {
+        db.run("DROP TABLE books", (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
     })
-    .then(() => closeDatabase);
-}
-
-function run(db, query, parames = []) {
-  return new Promise((resolve, reject) => {
-    db.run(query, parames, function (err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(this);
-      }
+    .then(() => {
+      return new Promise((resolve, reject) => {
+        db.close((err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
     });
-  });
-}
-
-function getRecord(db, query) {
-  return new Promise((resolve, reject) => {
-    db.get(query, (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(row);
-      }
-    });
-  });
-}
+})();
