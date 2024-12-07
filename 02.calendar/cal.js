@@ -39,7 +39,7 @@ function displayWeekAndDays(year, month) {
   const firstDate = dayjs(`${year}-${month}-01`);
   const lastDate = firstDate.endOf("month");
   for (let i = 0; i < firstDate.day(); i++) {
-    process.stdout.write(" ".repeat(DAY_WIDTH) + " ");
+    process.stdout.write(`${" ".repeat(DAY_WIDTH)} `);
   }
   for (let i = 1; i <= lastDate.date(); i++) {
     let dayString = i.toString().padStart(DAY_WIDTH, " ");
