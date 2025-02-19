@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import sqlite3 from "sqlite3";
+import { run, get, close } from "./common.js";
 
 var db = null;
 
@@ -16,7 +17,8 @@ var db = null;
   });
 
   await new Promise((resolve, reject) => {
-    db.run(
+    run(
+      db,
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
       (err) => {
         if (err) {
@@ -29,9 +31,9 @@ var db = null;
   });
 
   const result = await new Promise((resolve, reject) => {
-    db.run(
+    run(
+      db,
       "INSERT INTO books (title) VALUES (?)",
-      ["book title"],
       function (err) {
         if (err) {
           reject(err);
@@ -39,12 +41,13 @@ var db = null;
           resolve(this);
         }
       },
+      ["book title"],
     );
   });
 
   console.log(`id: ${result.lastID}`);
   const row = await new Promise((resolve, reject) => {
-    db.get("SELECT id, title FROM books", (err, row) => {
+    get(db, "SELECT id, title FROM books", (err, row) => {
       if (err) {
         reject(err);
       } else {
@@ -55,7 +58,7 @@ var db = null;
 
   console.log("id: " + row.id + ", title: " + row.title);
   await new Promise((resolve, reject) => {
-    db.run("DROP TABLE books", (err) => {
+    run(db, "DROP TABLE books", (err) => {
       if (err) {
         reject(err);
       } else {
@@ -65,7 +68,7 @@ var db = null;
   });
 
   await new Promise((resolve, reject) => {
-    db.close((err) => {
+    close(db, (err) => {
       if (err) {
         reject(err);
       } else {
