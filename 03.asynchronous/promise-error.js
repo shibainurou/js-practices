@@ -17,72 +17,30 @@ var db = null;
   })
     .then((database) => {
       db = database;
-      return new Promise((resolve, reject) => {
-        run(
-          db,
-          "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
-          (err) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
-            }
-          },
-        );
-      });
+      return run(
+        db,
+        "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
+      );
     })
     .then(() => {
-      return new Promise((resolve, reject) => {
-        run(
-          db,
-          "INSERT INTO books (id, title) VALUES (?, ?)",
-          function (err) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(this);
-            }
-          },
-          ["a", "book title"],
-        );
-      });
+      return run(db, "INSERT INTO books (id, title) VALUES (?, ?)", [
+        "a",
+        "book title",
+      ]);
     })
     .catch((err) => {
       console.error(err.message);
     })
     .then(() => {
-      return new Promise((resolve, reject) => {
-        get(db, "SELECT ids, title FROM books", (err, row) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(row);
-          }
-        });
-      }).catch((err) => {
-        console.error(err.message);
-      });
+      return get(db, "SELECT ids, title FROM books");
+    })
+    .catch((err) => {
+      console.error(err.message);
     })
     .then(() => {
-      return new Promise((resolve, reject) => {
-        run(db, "DROP TABLE books", (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      });
+      return run(db, "DROP TABLE books");
     })
     .then(() => {
-      return new Promise((resolve, reject) => {
-        close(db, (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      });
+      return close(db);
     });
 })();

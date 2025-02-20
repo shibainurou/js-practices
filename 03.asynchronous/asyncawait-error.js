@@ -16,35 +16,16 @@ var db = null;
     });
   });
 
-  await new Promise((resolve, reject) => {
-    run(
-      db,
-      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
-      (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      },
-    );
-  });
+  await run(
+    db,
+    "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
+  );
 
   try {
-    await new Promise((resolve, reject) => {
-      run(
-        db,
-        "INSERT INTO books (id, title) VALUES (?, ?)",
-        function (err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(this);
-          }
-        },
-        ["a", "book title"],
-      );
-    });
+    await run(db, "INSERT INTO books (id, title) VALUES (?, ?)", [
+      "a",
+      "book title",
+    ]);
   } catch (err) {
     if (err.code === "SQLITE_MISMATCH") {
       console.error(err.message);
@@ -52,38 +33,14 @@ var db = null;
   }
 
   try {
-    await new Promise((resolve, reject) => {
-      get(db, "SELECT ids, title FROM books", (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
-    });
+    await get(db, "SELECT ids, title FROM books");
   } catch (err) {
     if (err.code === "SQLITE_ERROR") {
       console.error(err.message);
     }
   }
 
-  await new Promise((resolve, reject) => {
-    run(db, "DROP TABLE books", (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
+  await run(db, "DROP TABLE books");
 
-  await new Promise((resolve, reject) => {
-    close(db, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
+  await close(db);
 })();
