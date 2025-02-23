@@ -1,3 +1,17 @@
+import sqlite3 from "sqlite3";
+
+export function open() {
+  return new Promise((resolve, reject) => {
+    const database = new sqlite3.Database(":memory:", (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(database);
+      }
+    });
+  });
+}
+
 export function run(db, query, parames = []) {
   return new Promise((resolve, reject) => {
     db.run(query, parames, function (err) {

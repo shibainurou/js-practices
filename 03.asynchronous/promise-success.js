@@ -1,19 +1,10 @@
 #!/usr/bin/env node
 
-import sqlite3 from "sqlite3";
-import { run, get, close } from "./common.js";
+import { run, get, close, open } from "./common.js";
 var db = null;
 
 (function () {
-  new Promise((resolve, reject) => {
-    const database = new sqlite3.Database(":memory:", (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(database);
-      }
-    });
-  })
+  open()
     .then((database) => {
       db = database;
       return run(
