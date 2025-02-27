@@ -12,9 +12,9 @@ export function open(databaseName) {
   });
 }
 
-export function run(db, query, parames = []) {
+export function run(db, query, params = []) {
   return new Promise((resolve, reject) => {
-    db.run(query, parames, function (error) {
+    db.run(query, params, function (error) {
       if (error) {
         reject(error);
       } else {
