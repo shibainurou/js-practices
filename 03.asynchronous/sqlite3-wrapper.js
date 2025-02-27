@@ -2,9 +2,9 @@ import sqlite3 from "sqlite3";
 
 export function open(databaseName) {
   return new Promise((resolve, reject) => {
-    const database = new sqlite3.Database(`:${databaseName}:`, (err) => {
-      if (err) {
-        reject(err);
+    const database = new sqlite3.Database(`:${databaseName}:`, (error) => {
+      if (error) {
+        reject(error);
       } else {
         resolve(database);
       }
@@ -14,9 +14,9 @@ export function open(databaseName) {
 
 export function run(db, query, parames = []) {
   return new Promise((resolve, reject) => {
-    db.run(query, parames, function (err) {
-      if (err) {
-        reject(err);
+    db.run(query, parames, function (error) {
+      if (error) {
+        reject(error);
       } else {
         resolve(this);
       }
@@ -26,9 +26,9 @@ export function run(db, query, parames = []) {
 
 export function get(db, query) {
   return new Promise((resolve, reject) => {
-    db.get(query, (err, row) => {
-      if (err) {
-        reject(err);
+    db.get(query, (error, row) => {
+      if (error) {
+        reject(error);
       } else {
         resolve(row);
       }
@@ -38,9 +38,9 @@ export function get(db, query) {
 
 export function close(db) {
   return new Promise((resolve, reject) => {
-    db.close((err) => {
-      if (err) {
-        reject(err);
+    db.close((error) => {
+      if (error) {
+        reject(error);
       } else {
         resolve();
       }

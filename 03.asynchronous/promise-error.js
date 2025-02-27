@@ -20,14 +20,14 @@ var db = null;
         "book title",
       ]);
     })
-    .catch((err) => {
-      console.error(err.message);
+    .catch((error) => {
+      console.error(error.message);
     })
     .then(() => {
       return get(db, "SELECT ids, title FROM books");
     })
-    .catch((err) => {
-      console.error(err.message);
+    .catch((error) => {
+      console.error(error.message);
     })
     .then(() => {
       return run(db, "DROP TABLE books");

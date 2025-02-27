@@ -18,17 +18,17 @@ var db = null;
       "a",
       "book title",
     ]);
-  } catch (err) {
-    if (err.code === "SQLITE_MISMATCH") {
-      console.error(err.message);
+  } catch (error) {
+    if (error.code === "SQLITE_MISMATCH") {
+      console.error(error.message);
     }
   }
 
   try {
     await get(db, "SELECT ids, title FROM books");
-  } catch (err) {
-    if (err.code === "SQLITE_ERROR") {
-      console.error(err.message);
+  } catch (error) {
+    if (error.code === "SQLITE_ERROR") {
+      console.error(error.message);
     }
   }
 

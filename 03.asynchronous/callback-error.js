@@ -9,15 +9,15 @@ const db = new sqlite3.Database(":memory:", () => {
       db.run(
         "INSERT INTO books (id, title) VALUES (?, ?)",
         ["a", "book title"],
-        function (err) {
-          if (err) {
-            console.error(err.message);
+        function (error) {
+          if (error) {
+            console.error(error.message);
           } else {
             console.log(`id: ${this.lastID}`);
           }
-          db.get("SELECT ids, title FROM books", (err, row) => {
-            if (err) {
-              console.error(err.message);
+          db.get("SELECT ids, title FROM books", (error, row) => {
+            if (error) {
+              console.error(error.message);
             } else {
               console.log(`id: ${row.id}, title: ${row.title}`);
             }

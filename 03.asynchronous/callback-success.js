@@ -11,7 +11,7 @@ const db = new sqlite3.Database(":memory:", () => {
         ["book title"],
         function () {
           console.log(`id: ${this.lastID}`);
-          db.get("SELECT id, title FROM books", (err, row) => {
+          db.get("SELECT id, title FROM books", (error, row) => {
             console.log(`id: ${row.id}, title: ${row.title}`);
             db.run("DROP TABLE books", () => {
               db.close();
