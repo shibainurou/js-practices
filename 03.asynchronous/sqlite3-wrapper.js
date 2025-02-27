@@ -1,8 +1,8 @@
 import sqlite3 from "sqlite3";
 
-export function open() {
+export function open(databaseName) {
   return new Promise((resolve, reject) => {
-    const database = new sqlite3.Database(":memory:", (err) => {
+    const database = new sqlite3.Database(`:${databaseName}:`, (err) => {
       if (err) {
         reject(err);
       } else {

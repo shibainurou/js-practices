@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 import { run, get, close, open } from "./sqlite3-wrapper.js";
+
+const databaseName = "memory";
 var db = null;
 
 (function () {
-  open()
+  open(databaseName)
     .then((database) => {
       db = database;
       return run(

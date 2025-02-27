@@ -2,10 +2,11 @@
 
 import { run, get, close, open } from "./sqlite3-wrapper.js";
 
+const databaseName = "memory";
 var db = null;
 
 (async function () {
-  db = await open();
+  db = await open(databaseName);
 
   await run(
     db,
