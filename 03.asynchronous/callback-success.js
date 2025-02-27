@@ -9,18 +9,10 @@ const db = new sqlite3.Database(":memory:", () => {
       db.run(
         "INSERT INTO books (title) VALUES (?)",
         ["book title"],
-        function (err) {
-          if (err) {
-            console.error(err.message);
-          } else {
-            console.log(`id: ${this.lastID}`);
-          }
+        function () {
+          console.log(`id: ${this.lastID}`);
           db.get("SELECT id, title FROM books", (err, row) => {
-            if (err) {
-              console.error(err.message);
-            } else {
-              console.log(`id: ${row.id}, title: ${row.title}`);
-            }
+            console.log(`id: ${row.id}, title: ${row.title}`);
             db.run("DROP TABLE books", () => {
               db.close();
             });
