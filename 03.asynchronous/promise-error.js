@@ -7,8 +7,8 @@ let db;
 
 (function () {
   open(databaseName)
-    .then((database) => {
-      db = database;
+    .then((dbArgs) => {
+      db = dbArgs;
       return run(
         db,
         "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
