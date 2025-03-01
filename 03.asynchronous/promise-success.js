@@ -3,7 +3,7 @@
 import { run, get, close, open } from "./sqlite3-wrapper.js";
 
 const databaseName = "memory";
-var db = null;
+let db;
 
 (function () {
   open(databaseName)
