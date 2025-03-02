@@ -19,7 +19,7 @@ let db;
   console.log(`id: ${result.lastID}`);
 
   const row = await get(db, "SELECT id, title FROM books");
-  console.log("id: " + row.id + ", title: " + row.title);
+  console.log(`id: ${row.id}, title: ${row.title}`);
 
   await run(db, "DROP TABLE books");
 

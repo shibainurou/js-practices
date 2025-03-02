@@ -20,7 +20,7 @@ let db;
       return get(db, "SELECT id, title FROM books");
     })
     .then((row) => {
-      console.log("id: " + row.id + ", title: " + row.title);
+      console.log(`id: ${row.id}, title: ${row.title}`);
       return run(db, "DROP TABLE books");
     })
     .then(() => close(db));
