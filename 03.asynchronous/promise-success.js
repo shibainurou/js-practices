@@ -14,9 +14,7 @@ let db;
         "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
       );
     })
-    .then(() => {
-      return run(db, "INSERT INTO books (title) VALUES (?)", ["book title"]);
-    })
+    .then(() => run(db, "INSERT INTO books (title) VALUES (?)", ["book title"]))
     .then((result) => {
       console.log(`id: ${result.lastID}`);
       return get(db, "SELECT id, title FROM books");
@@ -25,7 +23,5 @@ let db;
       console.log("id: " + row.id + ", title: " + row.title);
       return run(db, "DROP TABLE books");
     })
-    .then(() => {
-      return close(db);
-    });
+    .then(() => close(db));
 })();

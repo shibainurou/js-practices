@@ -14,25 +14,15 @@ let db;
         "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
       );
     })
-    .then(() => {
-      return run(db, "INSERT INTO books (id, title) VALUES (?, ?)", [
+    .then(() =>
+      run(db, "INSERT INTO books (id, title) VALUES (?, ?)", [
         "a",
         "book title",
-      ]);
-    })
-    .catch((error) => {
-      console.error(error.message);
-    })
-    .then(() => {
-      return get(db, "SELECT ids, title FROM books");
-    })
-    .catch((error) => {
-      console.error(error.message);
-    })
-    .then(() => {
-      return run(db, "DROP TABLE books");
-    })
-    .then(() => {
-      return close(db);
-    });
+      ]),
+    )
+    .catch((error) => console.error(error.message))
+    .then(() => get(db, "SELECT ids, title FROM books"))
+    .catch((error) => console.error(error.message))
+    .then(() => run(db, "DROP TABLE books"))
+    .then(() => close(db));
 })();
