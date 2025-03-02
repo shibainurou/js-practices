@@ -14,10 +14,12 @@ let db;
   );
 
   try {
-    await run(db, "INSERT INTO books (id, title) VALUES (?, ?)", [
-      "a",
-      "book title",
-    ]);
+    const result = await run(
+      db,
+      "INSERT INTO books (id, title) VALUES (?, ?)",
+      ["a", "book title"],
+    );
+    console.log(`id: ${result.lastID}`);
   } catch (error) {
     if (error.code === "SQLITE_MISMATCH") {
       console.error(error.message);
@@ -25,7 +27,8 @@ let db;
   }
 
   try {
-    await get(db, "SELECT ids, title FROM books");
+    const row = await get(db, "SELECT ids, title FROM books");
+    console.log(`id: ${row.id}, title: ${row.title}`);
   } catch (error) {
     if (error.code === "SQLITE_ERROR") {
       console.error(error.message);
