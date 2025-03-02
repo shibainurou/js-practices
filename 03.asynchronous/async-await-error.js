@@ -19,7 +19,9 @@ try {
 } catch (error) {
   if (error instanceof Error && error.code === "SQLITE_MISMATCH") {
     console.error(error.message);
-  }
+  } else {
+      throw error;
+  }  
 }
 
 try {
@@ -28,6 +30,8 @@ try {
 } catch (error) {
   if (error instanceof Error && error.code === "SQLITE_ERROR") {
     console.error(error.message);
+  } else {
+    throw error;
   }
 }
 
