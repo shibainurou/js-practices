@@ -17,7 +17,7 @@ try {
   ]);
   console.log(`id: ${result.lastID}`);
 } catch (error) {
-  if (error.code === "SQLITE_MISMATCH") {
+  if (error instanceof Error && error.code === "SQLITE_MISMATCH") {
     console.error(error.message);
   }
 }
@@ -26,7 +26,7 @@ try {
   const row = await get(db, "SELECT ids, title FROM books");
   console.log(`id: ${row.id}, title: ${row.title}`);
 } catch (error) {
-  if (error.code === "SQLITE_ERROR") {
+  if (error instanceof Error && error.code === "SQLITE_ERROR") {
     console.error(error.message);
   }
 }
