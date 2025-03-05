@@ -20,8 +20,8 @@ try {
   if (error instanceof Error && error.code === "SQLITE_MISMATCH") {
     console.error(error.message);
   } else {
-      throw error;
-  }  
+    throw error;
+  }
 }
 
 try {
