@@ -5,8 +5,8 @@ import { run, get, close, open } from "./sqlite3-wrapper.js";
 let db;
 
 open(":memory:")
-  .then((dbArgs) => {
-    db = dbArgs;
+  .then((dbParam) => {
+    db = dbParam;
     return run(
       db,
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
