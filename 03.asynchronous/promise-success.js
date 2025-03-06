@@ -2,10 +2,9 @@
 
 import { run, get, close, open } from "./sqlite3-wrapper.js";
 
-const databaseName = "memory";
 let db;
 
-open(databaseName)
+open(":memory:")
   .then((dbArgs) => {
     db = dbArgs;
     return run(

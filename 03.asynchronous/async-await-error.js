@@ -2,9 +2,7 @@
 
 import { run, get, close, open } from "./sqlite3-wrapper.js";
 
-const databaseName = "memory";
-
-const db = await open(databaseName);
+const db = await open(":memory:");
 await run(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
