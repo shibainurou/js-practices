@@ -2,18 +2,21 @@
 
 import { run, get, close, open } from "./sqlite3-wrapper.js";
 
-let db;
+let database;
 
 open(":memory:")
-  .then((dbParam) => {
-    db = dbParam;
+  .then((databaseParam) => {
+    database = databaseParam;
     return run(
-      db,
+      database,
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     );
   })
   .then(() =>
-    run(db, "INSERT INTO books (id, title) VALUES (?, ?)", ["a", "book title"]),
+    run(database, "INSERT INTO books (id, title) VALUES (?, ?)", [
+      "a",
+      "book title",
+    ]),
   )
   .then((result) => {
     console.log(`id: ${result.lastID}`);
@@ -21,7 +24,7 @@ open(":memory:")
   .catch((error) => {
     console.error(error.message);
   })
-  .then(() => get(db, "SELECT ids, title FROM books"))
+  .then(() => get(database, "SELECT ids, title FROM books"))
   .then((row) => {
     console.log(`id: ${row.id}, title: ${row.title}`);
   })
@@ -29,8 +32,8 @@ open(":memory:")
     console.error(error.message);
   })
   .then(() => {
-    run(db, "DROP TABLE books");
+    run(database, "DROP TABLE books");
   })
   .then(() => {
-    close(db);
+    close(database);
   });

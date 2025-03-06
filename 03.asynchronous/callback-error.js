@@ -2,11 +2,11 @@
 
 import sqlite3 from "sqlite3";
 
-const db = new sqlite3.Database(":memory:", () => {
-  db.run(
+const database = new sqlite3.Database(":memory:", () => {
+  database.run(
     "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     () => {
-      db.run(
+      database.run(
         "INSERT INTO books (id, title) VALUES (?, ?)",
         ["a", "book title"],
         function (error) {
@@ -15,14 +15,14 @@ const db = new sqlite3.Database(":memory:", () => {
           } else {
             console.log(`id: ${this.lastID}`);
           }
-          db.get("SELECT ids, title FROM books", (error, row) => {
+          database.get("SELECT ids, title FROM books", (error, row) => {
             if (error) {
               console.error(error.message);
             } else {
               console.log(`id: ${row.id}, title: ${row.title}`);
             }
-            db.run("DROP TABLE books", () => {
-              db.close();
+            database.run("DROP TABLE books", () => {
+              database.close();
             });
           });
         },

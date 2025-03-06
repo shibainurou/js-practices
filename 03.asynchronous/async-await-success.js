@@ -2,21 +2,21 @@
 
 import { run, get, close, open } from "./sqlite3-wrapper.js";
 
-const db = await open(":memory:");
+const database = await open(":memory:");
 
 await run(
-  db,
+  database,
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
 );
 
-const result = await run(db, "INSERT INTO books (title) VALUES (?)", [
+const result = await run(database, "INSERT INTO books (title) VALUES (?)", [
   "book title",
 ]);
 console.log(`id: ${result.lastID}`);
 
-const row = await get(db, "SELECT id, title FROM books");
+const row = await get(database, "SELECT id, title FROM books");
 console.log(`id: ${row.id}, title: ${row.title}`);
 
-await run(db, "DROP TABLE books");
+await run(database, "DROP TABLE books");
 
-await close(db);
+await close(database);

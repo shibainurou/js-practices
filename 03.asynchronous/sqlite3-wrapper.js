@@ -12,9 +12,9 @@ export function open(databaseName) {
   });
 }
 
-export function run(db, query, params) {
+export function run(database, query, params) {
   return new Promise((resolve, reject) => {
-    db.run(query, params, function (error) {
+    database.run(query, params, function (error) {
       if (error) {
         reject(error);
       } else {
@@ -24,9 +24,9 @@ export function run(db, query, params) {
   });
 }
 
-export function get(db, query, params) {
+export function get(database, query, params) {
   return new Promise((resolve, reject) => {
-    db.get(query, params, (error, row) => {
+    database.get(query, params, (error, row) => {
       if (error) {
         reject(error);
       } else {
@@ -36,9 +36,9 @@ export function get(db, query, params) {
   });
 }
 
-export function close(db) {
+export function close(database) {
   return new Promise((resolve, reject) => {
-    db.close((error) => {
+    database.close((error) => {
       if (error) {
         reject(error);
       } else {
