@@ -21,4 +21,6 @@ open(":memory:")
     console.log(`id: ${row.id}, title: ${row.title}`);
     return run(db, "DROP TABLE books");
   })
-  .then(() => close(db));
+  .then(() => {
+    close(db);
+  });
