@@ -12,7 +12,7 @@ export function open(databaseName) {
   });
 }
 
-export function run(db, query, params = []) {
+export function run(db, query, params) {
   return new Promise((resolve, reject) => {
     db.run(query, params, function (error) {
       if (error) {
@@ -24,7 +24,7 @@ export function run(db, query, params = []) {
   });
 }
 
-export function get(db, query, params = []) {
+export function get(db, query, params) {
   return new Promise((resolve, reject) => {
     db.get(query, params, (error, row) => {
       if (error) {
