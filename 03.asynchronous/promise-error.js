@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { run, get, close, open } from "./sqlite3-wrapper.js";
+import { open, run, get, close } from "./sqlite3-wrapper.js";
 
 let database;
 
