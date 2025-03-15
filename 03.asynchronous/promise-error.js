@@ -12,19 +12,21 @@ open(":memory:")
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     );
   })
-  .then(() =>
-    run(database, "INSERT INTO books (id, title) VALUES (?, ?)", [
+  .then(() => {
+    return run(database, "INSERT INTO books (id, title) VALUES (?, ?)", [
       "a",
       "book title",
-    ]),
-  )
+    ]);
+  })
   .then((result) => {
     console.log(`id: ${result.lastID}`);
   })
   .catch((error) => {
     console.error(error.message);
   })
-  .then(() => get(database, "SELECT ids, title FROM books"))
+  .then(() => {
+    return get(database, "SELECT ids, title FROM books");
+  })
   .then((row) => {
     console.log(`id: ${row.id}, title: ${row.title}`);
   })
@@ -32,8 +34,8 @@ open(":memory:")
     console.error(error.message);
   })
   .then(() => {
-    run(database, "DROP TABLE books");
+    return run(database, "DROP TABLE books");
   })
   .then(() => {
-    close(database);
+    return close(database);
   });

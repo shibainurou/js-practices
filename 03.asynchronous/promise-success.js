@@ -12,9 +12,11 @@ open(":memory:")
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     );
   })
-  .then(() =>
-    run(database, "INSERT INTO books (title) VALUES (?)", ["book title"]),
-  )
+  .then(() => {
+    return run(database, "INSERT INTO books (title) VALUES (?)", [
+      "book title",
+    ]);
+  })
   .then((result) => {
     console.log(`id: ${result.lastID}`);
     return get(database, "SELECT id, title FROM books");
@@ -24,5 +26,5 @@ open(":memory:")
     return run(database, "DROP TABLE books");
   })
   .then(() => {
-    close(database);
+    return close(database);
   });
