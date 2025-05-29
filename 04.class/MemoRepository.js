@@ -10,7 +10,7 @@ export class MemoRepository {
 
   async findAll() {
     const memos = await this.database.run(
-      "SELECT id, title, content FROM memos",
+      "SELECT id, title, content FROM memos ORDER BY id",
     );
     return memos.map(
       (memo) => new MemoEntity(memo.id, memo.title, memo.content),
@@ -19,7 +19,7 @@ export class MemoRepository {
 
   async findById(id) {
     const [memo] = await this.database.run(
-      "SELECT id, title, content FROM memos WHERE id = ?",
+      "SELECT id, title, content FROM memos WHERE id = ? ORDER BY id",
       [id],
     );
     return new MemoEntity(memo.id, memo.title, memo.content);
