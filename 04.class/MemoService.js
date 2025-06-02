@@ -33,7 +33,7 @@ export class MemoService {
 
     console.log("=== メモ一覧 ===");
     memos.forEach((memo) => {
-      console.log(`${memo.title}`);
+      console.log(memo.title);
     });
   }
 
@@ -51,8 +51,8 @@ export class MemoService {
 
     const memo = memos.find((m) => m.id === selectedMemo.id);
     console.log("=== メモ詳細 ===");
-    console.log(`${memo.title}`);
-    console.log(`${memo.content}`);
+    console.log(memo.title);
+    console.log(memo.content);
   }
 
   async delete() {
