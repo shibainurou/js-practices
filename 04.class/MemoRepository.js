@@ -13,7 +13,7 @@ export class MemoRepository {
       "SELECT id, title, content FROM memos ORDER BY id",
     );
     return memos.map(
-      (memo) => new MemoEntity(memo.id, memo.title, memo.content),
+      ({ id, title, content }) => new MemoEntity(id, title, content),
     );
   }
 
