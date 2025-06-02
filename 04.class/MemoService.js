@@ -49,7 +49,8 @@ export class MemoService {
       "表示するメモを選択してください",
     );
 
-    const memo = memos.find((m) => m.id === selectedMemo.id);
+    console.log(selectedMemo.id);
+    const memo = await this.memoRepository.findById(selectedMemo.id);
     console.log("=== メモ詳細 ===");
     console.log(memo.title);
     console.log(memo.content);
@@ -67,7 +68,7 @@ export class MemoService {
       "削除するメモを選択してください",
     );
 
-    const memo = memos.find((m) => m.id === selectedMemo.id);
+    const memo = await this.memoRepository.findById(selectedMemo.id);
     await this.memoRepository.delete(memo.id);
     console.log("メモを削除しました");
   }
