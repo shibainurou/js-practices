@@ -5,7 +5,6 @@ import { CommandLine } from "./CommandLine.js";
 
 class MemoApp {
   async run() {
-    let isExitPrompt = false;
     const commandline = new CommandLine(process.argv);
     const memo = new MemoService();
     await memo.initialize();
