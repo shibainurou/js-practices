@@ -49,7 +49,6 @@ export class MemoService {
       "表示するメモを選択してください",
     );
 
-    console.log(selectedMemo.id);
     const memo = await this.memoRepository.findById(selectedMemo.id);
     console.log("=== メモ詳細 ===");
     console.log(memo.title);
