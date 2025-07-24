@@ -33,14 +33,11 @@ class MemoApp {
     } catch (e) {
       if (e instanceof Error && e.name === "ExitPromptError") {
         // noop; silence this error
-        isExitPrompt = true;
       } else {
         console.log(e);
       }
     } finally {
-      if (!isExitPrompt) {
-        await memo.close();
-      }
+      await memo.close();
     }
   }
 }
