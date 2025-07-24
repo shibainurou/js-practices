@@ -42,5 +42,7 @@ class MemoApp {
   }
 }
 
-const memoApp = new MemoApp();
-memoApp.run();
+(async () => {
+  const memoApp = new MemoApp();
+  await memoApp.run();
+})();
