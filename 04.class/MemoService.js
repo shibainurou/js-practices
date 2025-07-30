@@ -77,7 +77,7 @@ export class MemoService {
       {
         type: "list",
         name: "id",
-        message: message,
+        message,
         choices: memos.map((memo) => ({
           name: memo.title,
           value: memo.id,
