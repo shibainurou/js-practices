@@ -10,7 +10,7 @@ export class CommandLine {
 
   async readInputUntilEOF() {
     return new Promise((resolve) => {
-      let param = [];
+      const param = [];
       const readable = process.stdin;
       readable.setEncoding("utf8");
       readable.on("readable", () => {
